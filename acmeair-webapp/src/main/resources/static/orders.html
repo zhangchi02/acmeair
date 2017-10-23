@@ -37,6 +37,7 @@
 			dojo.require("dijit.Dialog");
 			dojo.require("dijit.Toolbar");
 			dojo.require("dijit.Declaration");
+			dojo.require("dojo.currency");
 			
 			dojo.addOnLoad(pageLoaded);
 			
@@ -47,9 +48,11 @@
 		    
 		    function createAndStartGrid() {
 		    	var grid, store, dataStore;
-		    	
+		    	var xhrContent = {userId: dojo.cookie("loggedinuser")};
 		    	dojo.xhrGet({
-					url: "bookings/rest/api/bookings/byuser/" + dojo.cookie("loggedinuser"),
+					//url: "bookings/rest/api/bookings/byuser/" + dojo.cookie("loggedinuser"),
+					url: "orders/huaweiair/v1/orders",
+					content: xhrContent,
 					handleAs: "json",
 					load: function(response, ioArgs) {
 						var theData = { items : response };
@@ -57,7 +60,13 @@
 							data : theData
 						});
 						var flightsGrid = dijit.byId("gridFlights");
-						flightsGrid.setStore(newStore);
+						try {
+							flightsGrid.setStore(newStore);
+							flightsGrid.update();
+						} catch(err) {
+							console.log(err);
+						}
+						console.log(dojo.currency.format(200, {currency: "USD"}));
 					},
 					error: function(response, ioArgs) {
 						alert(response);
@@ -135,34 +144,84 @@
 					return "select ...";
 				}
 			}
-			
-			function cancelBookings() {
+
+			function updateOrderStatus(checkCallback, updateStatus) {
 				if (returnIfNotLoggedIn()) { return }
 
 				var loggedinuser = dojo.cookie("loggedinuser");
 				
 				if (selectedIndexForFlights == -1) {
-					alert("please select a flight");
+					alert("please select a order");
 					return;
 				}
 				var grid = dijit.byId("gridFlights");
-				var bookingId = grid.store.getValue(grid.getItem(selectedIndexForFlights), "bookingId");
-				var customerId = grid.store.getValue(grid.getItem(selectedIndexForFlights), "customerId");
-				var xhrContent = { userid : loggedinuser }
-				xhrContent.number = bookingId;
-				xhrContent.userid = customerId;
-				dojo.xhrPost({
-					content : xhrContent,
-					url : 'bookings/rest/api/bookings/cancelbooking',
-					load : function(response, ioArgs) {
-						alert("Booking Canceled.");
+				var orderId = grid.store.getValue(grid.getItem(selectedIndexForFlights), "orderId");
+				var orderStatus = grid.store.getValue(grid.getItem(selectedIndexForFlights), "orderStatus");
+				orderStatus = orderStatusDesc2Int(orderStatus);
+				var error = checkCallback(orderStatus);
+				if ( error != null) {
+					alert(error);
+					return;
+				}
+				var xhrAgrs = {
+					url: 'orders/huaweiair/v1/orders/' + orderId,
+					content: {action: updateStatus},
+					handleAs: 'json',
+					load: function(response, ioArgs){
 						createAndStartGrid();
 					},
-					error : function(response, ioArgs) {
-						alert(response);
+					error: function(response, ioArgs){
+						alert(resonse);
 					}
-				});
-			}	
+				};
+				var defered = dojo.xhrPut(xhrAgrs);
+			}
+
+			function payOrder() {
+				var check = function(status){
+					if (status != ORDER_STATUS_WAITTING_PAYMENT) {
+						return "Only 'Waitting Payment' orders allow to pay.";
+					}
+					return null;
+				};
+				updateOrderStatus(check, ORDER_STATUS_VALID);
+			}
+
+			function cancelOrder() {
+				var check = function(status){
+					if (status == ORDER_STATUS_USED) {
+						return "Order already used, not allowed to cancel any more.";
+					}
+					if (status == ORDER_STATUS_CANCELED) {
+						return "Order already canceled."
+					}
+					return null;
+				};
+				updateOrderStatus(check, ORDER_STATUS_CANCELED);
+			}
+
+			function deleteOrder() {
+				if (returnIfNotLoggedIn()) { return }
+
+				var loggedinuser = dojo.cookie("loggedinuser");
+				
+				if (selectedIndexForFlights == -1) {
+					alert("please select a order");
+					return;
+				}
+				var grid = dijit.byId("gridFlights");
+				var orderId = grid.store.getValue(grid.getItem(selectedIndexForFlights), "orderId");				
+				var xhrAgrs = {
+					url: 'orders/huaweiair/v1/orders/' + orderId,
+					load: function(response, ioArgs){
+						createAndStartGrid();
+					},
+					error: function(response, ioArgs){
+						alert(resonse);
+					}
+				};
+				var defered = dojo.xhrDelete(xhrAgrs);
+			}
 			
 			var selectedIndexForFlights = -1;
 		</script>
@@ -221,24 +280,33 @@
 			<div data-dojo-type="ToolbarSectionStart" data-dojo-props='label:"Actions"'></div>
 			<div id="toolbar5.home" data-dojo-type="dijit.form.Button" data-dojo-props='showLabel:true' onClick="window.location='index.html'">Home</div>
 			<div id="toolbar5.flights" data-dojo-type="dijit.form.Button" data-dojo-props='showLabel:true' onClick="window.location='flights.html'">Flights</div>
-			<div id="toolbar5.checkin" data-dojo-type="dijit.form.Button" data-dojo-props='showLabel:true' onClick="window.location='checkin.html'">Checkin</div>
+			<div id="toolbar5.order" data-dojo-type="dijit.form.Button" data-dojo-props='showLabel:true' onClick="window.location='orders.html'">Orders</div>
 			<div id="toolbar5.login" data-dojo-type="dijit.form.Button" data-dojo-props='showLabel:true' onClick="showLoginDialog()">Login</div>
 			<div id="toolbar5.logout" data-dojo-type="dijit.form.Button" data-dojo-props='showLabel:true' onClick="logout()">Logout</div>
 			<div id="toolbar5.account" data-dojo-type="dijit.form.Button" data-dojo-props='showLabel:true' onClick="window.location='customerprofile.html'">Account</div>
 		</div>
 		
 		<div class="content">
-		<table data-dojo-type="dojox.grid.DataGrid" id="gridFlights" style="height: 200px">
+		<table data-dojo-type="dojox.grid.DataGrid" id="gridFlights" style="height: 400px">
 			<script type="dojo/connect" event="onCellClick" args="e">cellclick(e)</script> 
   	        	<thead>
      	        	<tr>
+						<span field="orderId" style="visibility:hidden;"></span>
+						<th field="name" width="80px">Order Name</th>
+						<th field="orderTime" width="100px">Order Time</th>
+						<th field="orderStatus" formatter="orderStatusFormatter" width="70px">Order Status</th>
 						<th field="flightId" width="100px">Flight</th>
-						<th field="dateOfBooking" formatter="dateFormatter" width="175px">Date Booked</th>
-						<th field="selected" formatter="formatSelected" width="120px" value="Check In">Check In</th>
+						<th field="scheduledDepartureTime" width="80px">Daparture Time</th>
+						<th field="scheduledArrivalTime" width="80px">Arrival Time</th>
+						<th field="flightClass" formatter="flightClassFormatter" width="70px">Flight Class</th>
+						<th field="flightPrice" formatter="currencyFormatter" width="80px">Amount</th>
+						<th field="selected" formatter="formatSelected" width="120px" value="Select">Select</th>
 					</tr>
 				</thead>
 		</table>
-		<button dojoType="dijit.form.Button" id="cancelBookings" onClick="cancelBookings()">Cancel Selected Bookings</button>
+		<button dojoType="dijit.form.Button" id="payOrder" onClick="payOrder()">Pay</button>
+		<button dojoType="dijit.form.Button" id="cancelOrder" onClick="cancelOrder()">Cancel</button>
+		<button dojoType="dijit.form.Button" id="deleteOrder" onClick="deleteOrder()">Delete</button>
 		</div>
 	</div>
 	<footer>

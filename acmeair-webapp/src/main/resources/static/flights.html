@@ -266,6 +266,8 @@
 		var grid = dijit.byId("gridOutbound");
 		var toFlightId = grid.store.getValue(grid.getItem(selectedIndexForToFlights), "_id");
 		var toFlightSegId = grid.store.getValue(grid.getItem(selectedIndexForToFlights), "flightSegmentId");
+		var toScheduledDepartureTime = grid.store.getValue(grid.getItem(selectedIndexForToFlights), "scheduledDepartureTime");
+		var toScheduledArrivalTime = grid.store.getValue(grid.getItem(selectedIndexForToFlights), "scheduledArrivalTime");
 		
 		var retFlightId;
 		var retFlightSegId;
@@ -278,30 +280,41 @@
 			var grid = dijit.byId("gridReturn");
 			retFlightId = grid.store.getValue(grid.getItem(selectedIndexForRetFlights), "_id");			
 			retFlightSegId = grid.store.getValue(grid.getItem(selectedIndexForRetFlights), "flightSegmentId");
+			var retScheduledDepartureTime = grid.store.getValue(grid.getItem(selectedIndexForToFlights), "scheduledDepartureTime");
+			var retScheduledArrivalTime = grid.store.getValue(grid.getItem(selectedIndexForToFlights), "scheduledArrivalTime");
 		}
 		
-		var xhrContent = { userid : loggedinuser }
+		var xhrContent = { userId : loggedinuser }
 		xhrContent.toFlightId = toFlightId;
 		xhrContent.toFlightSegId = toFlightSegId;
+		xhrContent.fromAirPortName = dojo.byId("outboundFrom").innerHTML;
+		xhrContent.toAirPortName = dojo.byId("outboundTo").innerHTML;
+		xhrContent.toScheduledDepartureTime = toScheduledDepartureTime;
+		xhrContent.toScheduledArrivalTime = toScheduledArrivalTime;
+		//TODO: those 2 properties should change to read from table
+		xhrContent.toFlightClass = 1;
+		xhrContent.toFlightPrice = 200;
+
 		if (!oneWayFlight) {
 			xhrContent.retFlightId = retFlightId;
 			xhrContent.retFlightSegId = retFlightSegId;
+			xhrContent.retScheduledDepartureTime = retScheduledDepartureTime;
+			xhrContent.retScheduledArrivalTime = retScheduledArrivalTime;
+
+			//TODO: those 2 properties should change to read from table
+			xhrContent.retFlightClass = 1;
+			xhrContent.retFlightPrice = 200;
 		}
 		xhrContent.oneWayFlight = oneWayFlight;
 		
 		dojo.xhrPost({
-			content : xhrContent,
-			url : 'bookings/rest/api/bookings/bookflights',
+			//url : 'bookings/rest/api/bookings/bookflights',
+			url: 'orders/huaweiair/v1/orders',
+			postData: dojo.toJson(xhrContent),
+			headers: {'Content-Type': 'Application/json'},
 			handleAs: "json",
 			load : function(response, ioArgs) {
-				dojo.byId("bookingToFlight").innerHTML = response.departBookingId;
-				if (response.returnBookingId) {
-					dojo.byId("bookingReturnFlight").innerHTML = response.returnBookingId;
-				}
-				else {
-					dojo.byId("bookingReturnFlight").innerHTML = '';
-				}
-				dijit.byId('bookingStatusDialog').show();
+				window.location.href = "/orders.html";
 			},
 			error : function(response, ioArgs) {
 				alert(response);
@@ -389,7 +402,7 @@
 			<div data-dojo-type="ToolbarSectionStart" data-dojo-props='label:"Actions"'></div>
 			<div id="toolbar5.home" data-dojo-type="dijit.form.Button" data-dojo-props='showLabel:true' onClick="window.location='index.html'">Home</div>
 			<div id="toolbar5.flights" data-dojo-type="dijit.form.Button" data-dojo-props='showLabel:true' onClick="window.location='flights.html'">Flights</div>
-			<div id="toolbar5.checkin" data-dojo-type="dijit.form.Button" data-dojo-props='showLabel:true' onClick="window.location='checkin.html'">Checkin</div>
+			<div id="toolbar5.order" data-dojo-type="dijit.form.Button" data-dojo-props='showLabel:true' onClick="window.location='orders.html'">Orders</div>
 			<div id="toolbar5.login" data-dojo-type="dijit.form.Button" data-dojo-props='showLabel:true' onClick="showLoginDialog()">Login</div>
 			<div id="toolbar5.logout" data-dojo-type="dijit.form.Button" data-dojo-props='showLabel:true' onClick="logout()">Logout</div>
 			<div id="toolbar5.account" data-dojo-type="dijit.form.Button" data-dojo-props='showLabel:true' onClick="window.location='customerprofile.html'">Account</div>

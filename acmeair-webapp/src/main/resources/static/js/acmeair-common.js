@@ -114,6 +114,46 @@ function currencyFormatter(data) {
 	return dojo.currency.format(data, {currency: "USD"});
 }
 
+function flightClassFormatter(data) {
+	if (data == 1) {
+		return 'Economy';
+	}
+	if (data == 0) {
+		return 'First';
+	}
+	return data;
+}
+
+const ORDER_STATUS_WAITTING_PAYMENT = 0;
+const ORDER_STATUS_VALID = 1;
+const ORDER_STATUS_USED = 2;
+const ORDER_STATUS_CANCELED = 3;
+
+const orderStatus = {
+	"Waitting Payment": 0,
+	"Valid": 1,
+	"Used": 2,
+	"Canceled": 3
+};
+
+function orderStatusFormatter(data) {
+	for (var s in orderStatus) {
+		if (orderStatus[s] == data) {
+			return s;
+		}
+	}
+	return data;
+}
+
+function orderStatusDesc2Int(data) {
+	for (var s in orderStatus) {
+		if (s == data) {
+			return orderStatus[s];
+		}
+	}
+	return data;
+}
+
 // genned from mongo by:  db.airportcodes.find({}, {airportCode:1, airportName:1}).forEach(function(f){print(tojson(f, '', true));});
 // switch airportCode to id
 var airportCodes = [

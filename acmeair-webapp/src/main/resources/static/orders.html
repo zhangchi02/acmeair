@@ -69,7 +69,7 @@
 						console.log(dojo.currency.format(200, {currency: "USD"}));
 					},
 					error: function(response, ioArgs) {
-						alert(response);
+						alert("Load orders failure.");
 					}
 		    	});
 		    }
@@ -168,10 +168,24 @@
 					content: {action: updateStatus},
 					handleAs: 'json',
 					load: function(response, ioArgs){
+						if (updateStatus == ORDER_STATUS_VALID) {
+							alert("Pay order " + orderId + " succeed.")
+						} else if (updateStatus == ORDER_STATUS_CANCELED) {
+							alert("Cancel order " + orderId + " succeed.")
+						} else {
+							alert("Update order " + orderId + " to status " + updateStatus + " succeed.")
+						}
+						
 						createAndStartGrid();
 					},
 					error: function(response, ioArgs){
-						alert(resonse);
+						if (updateStatus == ORDER_STATUS_VALID) {
+							alert("Pay order " + orderId + " failure.\n" + response)
+						} else if (updateStatus == ORDER_STATUS_CANCELED) {
+							alert("Cancel order " + orderId + " failure.\n" + response)
+						} else {
+							alert("Update order " + orderId + " to status " + updateStatus + " failure.\n" + response)
+						}
 					}
 				};
 				var defered = dojo.xhrPut(xhrAgrs);
@@ -214,10 +228,11 @@
 				var xhrAgrs = {
 					url: 'orders/huaweiair/v1/orders/' + orderId,
 					load: function(response, ioArgs){
+						alert("delete order " + orderId + " succeed.")
 						createAndStartGrid();
 					},
 					error: function(response, ioArgs){
-						alert(resonse);
+						alert("delete order " + orderId + " failure.\n" + response);
 					}
 				};
 				var defered = dojo.xhrDelete(xhrAgrs);

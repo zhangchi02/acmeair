@@ -314,10 +314,11 @@
 			headers: {'Content-Type': 'Application/json'},
 			handleAs: "json",
 			load : function(response, ioArgs) {
+				alert("Book flights succeed.");
 				window.location.href = "/orders.html";
 			},
 			error : function(response, ioArgs) {
-				alert(response);
+				alert("Book flight failure.\n" + response);
 			}
 		});
 	}

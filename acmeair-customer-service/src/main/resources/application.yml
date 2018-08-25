@@ -3,9 +3,11 @@ server:
 spring:
   cloud:
     consul:
+      enabled: false
       host: consul.acmeair.com
       port: 8500
       discovery:
+        enabled: false
 #        ipAddress: 127.0.0.1
         preferIpAddress: true
 

@@ -43,12 +43,12 @@ public class CustomerTemplateLoader implements TemplateLoader {
         Fixture.of(CustomerImpl.class).addTemplate("valid", new Rule() {{
             add("_id", String.valueOf(nextId()));
             add("password", uniquify("password"));
-            add("status", random(Customer.MemberShipStatus.class));
+            add("status", random(String.class,"GOLD","SILVER","NONE"));
             add("total_miles", random(Integer.class, range(1, 100000)));
             add("miles_ytd", random(Integer.class, range(1, 100000)));
             add("address", one(CustomerAddressImpl.class, "valid"));
             add("phoneNumber", random(String.class, uniquify("086"), uniquify("065")));
-            add("phoneNumberType", random(Customer.PhoneType.class));
+            add("phoneNumberType", random(String.class,"UNKNOWN","HOME","BUSINESS"));
         }});
 
         Fixture.of(CustomerSessionImpl.class).addTemplate("base", new Rule() {{

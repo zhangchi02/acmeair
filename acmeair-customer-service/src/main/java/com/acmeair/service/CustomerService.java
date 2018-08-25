@@ -22,8 +22,8 @@ import com.acmeair.entities.CustomerSession;
 import com.acmeair.morphia.entities.CustomerAddressImpl;
 
 public interface CustomerService {
-    Customer createCustomer(String username, String password, Customer.MemberShipStatus status, int total_miles, int miles_ytd, String phoneNumber,
-                                   Customer.PhoneType phoneNumberType, CustomerAddressImpl address
+    Customer createCustomer(String username, String password, String status, int total_miles, int miles_ytd, String phoneNumber,
+                                   String phoneNumberType, CustomerAddressImpl address
     );
     
     CustomerAddressImpl createAddress(String streetAddress1, String streetAddress2, String city, String stateProvince, String country, String postalCode);

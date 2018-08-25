@@ -17,7 +17,6 @@
 package com.acmeair.loader;
 
 import com.acmeair.entities.Customer;
-import com.acmeair.entities.Customer.PhoneType;
 import com.acmeair.entities.CustomerAddress;
 import com.acmeair.morphia.entities.CustomerAddressImpl;
 import com.acmeair.service.CustomerService;
@@ -54,7 +53,7 @@ public class CustomerLoaderREST {
     public void loadCustomers(@ApiParam(value = "Customer numbers which could be loaded", required = true) @QueryParam("number") long numCustomers) {
 		CustomerAddressImpl address = customerService.createAddress("123 Main St.", null, "Anytown", "NC", "USA", "27617");
 		for (long ii = 0; ii < numCustomers; ii++) {
-			customerService.createCustomer("uid"+ii+"@email.com", "password", Customer.MemberShipStatus.GOLD, 1000000, 1000, "919-123-4567", PhoneType.BUSINESS, address);
+			customerService.createCustomer("uid"+ii+"@email.com", "password", "GOLD", 1000000, 1000, "919-123-4567", "BUSINESS", address);
 		}
 	}
 }

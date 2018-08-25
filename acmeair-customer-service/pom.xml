@@ -24,7 +24,7 @@
 	</parent>
 
 	<properties>
-    <myFinalName>acmeair-customer-service</myFinalName>
+		<myFinalName>acmeair-customer-service</myFinalName>
 		<service.name>customer</service.name>
 	</properties>
 
@@ -191,20 +191,20 @@
 	</build>
 	<profiles>
 		<profile>
-            <id>docker</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                    </plugin>
+			<id>docker</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>io.fabric8</groupId>
+						<artifactId>docker-maven-plugin</artifactId>
+					</plugin>
 					<plugin>
 						<groupId>org.commonjava.maven.plugins</groupId>
 						<artifactId>directory-maven-plugin</artifactId>
 					</plugin>
-                </plugins>
-            </build>
-        </profile>
+				</plugins>
+			</build>
+		</profile>
 		<profile>
 			<id>HuaweiCloud</id>
 			<build>

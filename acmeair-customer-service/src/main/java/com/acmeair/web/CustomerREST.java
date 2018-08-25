@@ -139,7 +139,7 @@ public class CustomerREST {
 		addressFromDB.setPostalCode(customer.getAddress().getPostalCode());
 
 		customerFromDB.setPhoneNumber(customer.getPhoneNumber());
-		customerFromDB.setPhoneNumberType(Customer.PhoneType.valueOf(customer.getPhoneNumberType()));
+		customerFromDB.setPhoneNumberType(customer.getPhoneNumberType());
 
 		customerService.updateCustomer(customerFromDB);
 		customerFromDB.setPassword(null);

@@ -133,73 +133,73 @@ metadata:
       z: 1
       dependson:
         - f4b5614f-4ee5-44a6-a1bb-03d76f981892
-    c9a68a41-4abf-493b-9c24-e46a7e3cedd2:
+    5832aac3-826c-48ed-886d-decabc3b637f:
       source:
         id: eb7f2925-4a36-4612-9cab-379154e7f0b9
       target:
         id: f4b5614f-4ee5-44a6-a1bb-03d76f981892
       z: 1
-    95ba836f-f7b1-47fc-9706-5c1d1e9dcba4:
+    0b776cc9-fef0-4bc6-88ac-2c0900ad8f12:
       source:
         id: e5d7b724-a065-4684-be1c-49994270db82
       target:
         id: eb7f2925-4a36-4612-9cab-379154e7f0b9
       z: 1
-    5ba7b846-1907-4ecd-abba-4a2bcaab1a62:
+    c199c578-a981-4308-a06f-3723ceef3482:
       source:
         id: f941b656-a0a1-41b4-a6de-3533427acbc7
       target:
         id: f4b5614f-4ee5-44a6-a1bb-03d76f981892
       z: 1
-    d8f01003-8a32-46da-ac5e-aebe1ad9bddf:
+    78d1a966-ce59-465b-b416-a1c0633481f2:
       source:
         id: 6c6bb9f7-24b5-4a11-87cb-8bfbff9764a7
       target:
         id: f941b656-a0a1-41b4-a6de-3533427acbc7
       z: 1
-    eaa1485a-5575-4794-ada5-cee7681cb062:
+    27b2e51e-64cd-4d66-8329-4e5c1d51a5a7:
       source:
         id: 4cc6d116-ee2c-44ab-b88a-2c7bc7022766
       target:
         id: f4b5614f-4ee5-44a6-a1bb-03d76f981892
       z: 1
-    31ec894e-2f51-41b5-a351-0a1a25853238:
+    e6221ede-513c-4a6d-8c4e-98cbe53e36d6:
       source:
         id: 4cc6d116-ee2c-44ab-b88a-2c7bc7022766
       target:
         id: 6c6bb9f7-24b5-4a11-87cb-8bfbff9764a7
       z: 1
-    48b22947-9a8e-4966-b05d-6a5dd5badb0c:
+    1d091a44-7e45-463e-b28f-3fdca5c1fb00:
       source:
         id: e3b32c8b-3970-47f9-b298-991fda2a1499
       target:
         id: f4b5614f-4ee5-44a6-a1bb-03d76f981892
       z: 1
-    6609182d-8561-41b5-bb4c-8083742d5c6d:
+    88147fd9-a513-499e-9408-69d53f118243:
       source:
         id: e3b32c8b-3970-47f9-b298-991fda2a1499
       target:
         id: 6c6bb9f7-24b5-4a11-87cb-8bfbff9764a7
       z: 1
-    5348fd45-d514-4b84-83f8-2bc28a75779c:
+    9ac19868-924c-4616-981d-ae5f0299b197:
       source:
         id: 7dfbf088-08f3-4c84-b9af-0e276cbee3b9
       target:
         id: f941b656-a0a1-41b4-a6de-3533427acbc7
       z: 1
-    edd96057-fe4f-4e4c-8e2c-3806d9b4d1d7:
+    3c5e5b7e-2439-44fe-85eb-30c25e897f89:
       source:
         id: 7dfbf088-08f3-4c84-b9af-0e276cbee3b9
       target:
         id: 4cc6d116-ee2c-44ab-b88a-2c7bc7022766
       z: 1
-    eee803f9-3146-4ceb-9774-36fff7c17220:
+    e6030d08-0c03-4e4d-89ca-d45163f278f2:
       source:
         id: 7dfbf088-08f3-4c84-b9af-0e276cbee3b9
       target:
         id: e3b32c8b-3970-47f9-b298-991fda2a1499
       z: 1
-    67522107-a75c-4007-83b6-8e123da99960:
+    6af13185-d4e3-4c8a-91f6-df426c94861b:
       source:
         id: 7dfbf088-08f3-4c84-b9af-0e276cbee3b9
       target:
@@ -278,6 +278,14 @@ node_templates:
                             get_attribute:
                               - huaweiair-config
                               - refName
+                    - name: APPLICATION_ID
+                      valueFrom:
+                        configMapKeyRef:
+                          key: application_id
+                          name:
+                            get_attribute:
+                              - huaweiair-config
+                              - refName
                   image:
                     get_input: booking_image
                   name: booking-container
@@ -327,6 +335,14 @@ node_templates:
                             get_attribute:
                               - huaweiair-config
                               - refName
+                    - name: APPLICATION_ID
+                      valueFrom:
+                        configMapKeyRef:
+                          key: application_id
+                          name:
+                            get_attribute:
+                              - huaweiair-config
+                              - refName
                   image:
                     get_input: customer_image
                   name: customer-container
@@ -350,6 +366,10 @@ node_templates:
             - '-Dspring.data.mongodb.host=mongodb '
             - '-Dspring.data.mongodb.port='
             - get_input: mongo_port
+        application_id:
+          concat:
+            - '-DAPPLICATION_ID='
+            - get_input: appId
     type: HuaweiCloud.CCE.ConfigMap
   mongo:
     metadata:
@@ -447,6 +467,14 @@ node_templates:
                       value: acmeair-webapp
                     - name: JAVA_OPTS
                       value: '-Dspring.profiles.active=sc'
+                    - name: APPLICATION_ID
+                      valueFrom:
+                        configMapKeyRef:
+                          key: application_id
+                          name:
+                            get_attribute:
+                              - huaweiair-config
+                              - refName
                   image:
                     get_input: website_image
                   name: website-container

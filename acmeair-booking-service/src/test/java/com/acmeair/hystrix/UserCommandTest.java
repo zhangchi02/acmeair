@@ -44,7 +44,7 @@ public class UserCommandTest {
     private final CustomerInfo customerInfo = new CustomerInfo(
             "sean-123",
             "password",
-            Customer.MemberShipStatus.PLATINUM.name(),
+            "PLATINUM.name",
             1000,
             356,
             new AddressInfo(
@@ -56,7 +56,7 @@ public class UserCommandTest {
                     "100010"
             ),
             "100-100-111",
-            Customer.PhoneType.MOBILE.name()
+            "MOBILE"
     );
 
     private final UserService userService = new TestUserCommand(providerRule.getConfig().url());

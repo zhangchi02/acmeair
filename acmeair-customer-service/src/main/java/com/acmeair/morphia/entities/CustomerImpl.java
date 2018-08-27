@@ -37,19 +37,19 @@ public class CustomerImpl implements Customer, Serializable{
 	@Column(name = "id")
 	private String _id;
 	private String password;
-	private MemberShipStatus status;
+	private String status;
 	private int total_miles;
 	private int miles_ytd;
 
 	@Embedded
 	private CustomerAddressImpl address;
 	private String phoneNumber;
-	private PhoneType phoneNumberType;
+	private String phoneNumberType;
 	
 	public CustomerImpl() {
 	}
 	
-	public CustomerImpl(String username, String password, MemberShipStatus status, int total_miles, int miles_ytd, CustomerAddressImpl address, String phoneNumber, PhoneType phoneNumberType) {
+	public CustomerImpl(String username, String password, String status, int total_miles, int miles_ytd, CustomerAddressImpl address, String phoneNumber, String phoneNumberType) {
 		this._id = username;
 		this.password = password;
 		this.status = status;
@@ -80,11 +80,11 @@ public class CustomerImpl implements Customer, Serializable{
 		this.password = password;
 	}
 	
-	public MemberShipStatus getStatus() {
+	public String getMemberShipStatus() {
 		return status;
 	}
 	
-	public void setStatus(MemberShipStatus status) {
+	public void setMemberShipStatus(String status) {
 		this.status = status;
 	}
 	
@@ -112,11 +112,11 @@ public class CustomerImpl implements Customer, Serializable{
 		this.phoneNumber = phoneNumber;
 	}
 
-	public PhoneType getPhoneNumberType() {
+	public String getPhoneNumberType() {
 		return phoneNumberType;
 	}
 
-	public void setPhoneNumberType(PhoneType phoneNumberType) {
+	public void setPhoneNumberType(String phoneNumberType) {
 		this.phoneNumberType = phoneNumberType;
 	}
 

@@ -65,7 +65,7 @@ public class CustomerServiceContractTest {
     private final Customer            customer            = new CustomerImpl(
             "sean-123",
             "password",
-            Customer.MemberShipStatus.PLATINUM,
+            "PLATINUM",
             1000,
             356,
             new CustomerAddressImpl(
@@ -77,7 +77,7 @@ public class CustomerServiceContractTest {
                     "100010"
             ),
             "100-100-111",
-            Customer.PhoneType.MOBILE
+            "MOBILE"
     );
 
     private final CustomerSessionInfo customerSessionInfo = new CustomerSessionInfo(

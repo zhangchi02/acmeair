@@ -21,6 +21,8 @@ import static org.springframework.http.HttpHeaders.SET_COOKIE;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.apache.servicecomb.common.rest.codec.RestObjectMapper;
+import org.apache.servicecomb.common.rest.codec.RestObjectMapperFactory;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -80,7 +82,7 @@ public class LoginCookieUpdateFilter extends ZuulFilter {
 
   private Map<String, String> jsonOf(RequestContext context, String content) {
     try {
-      return RestObjectMapper.INSTANCE.readValue(content, HashMap.class);
+      return RestObjectMapperFactory.getRestObjectMapper().readValue(content, HashMap.class);
     } catch (IOException e) {
       context.setResponseStatusCode(SC_INTERNAL_SERVER_ERROR);
       throw new IllegalStateException("Failed to parse json in response body", e);

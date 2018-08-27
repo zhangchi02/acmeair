@@ -21,12 +21,6 @@ package com.acmeair.entities;
 
 public interface Customer {
 
-	enum MemberShipStatus { NONE, SILVER, GOLD, PLATINUM, EXEC_PLATINUM, GRAPHITE };
-	enum PhoneType { UNKNOWN, HOME, BUSINESS, MOBILE };
-	
-	
-	String getCustomerId();
-	
 	String getUsername();
 	
 	void setUsername(String username);
@@ -35,24 +29,27 @@ public interface Customer {
 	
 	void setPassword(String password);
 	
-	MemberShipStatus getStatus();
+	String getPhoneNumber();
 	
-	void setStatus(MemberShipStatus status);
+	void setPhoneNumber(String phoneNumber);
+	
+	String getCustomerId();
+	
+	CustomerAddress getAddress();
+	
+	void setAddress(CustomerAddress address);
+	
+	String getMemberShipStatus();
+	
+	void setMemberShipStatus(String status);
 	
 	int getTotal_miles();
 	
 	int getMiles_ytd();
 	
-	String getPhoneNumber();
+	String getPhoneNumberType();
 
-	void setPhoneNumber(String phoneNumber);
+	void setPhoneNumberType(String phoneNumberType);
 
-	PhoneType getPhoneNumberType();
-
-	void setPhoneNumberType(PhoneType phoneNumberType);
-
-	CustomerAddress getAddress();
-
-	void setAddress(CustomerAddress address);
 
 }

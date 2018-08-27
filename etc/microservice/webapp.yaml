@@ -32,7 +32,3 @@ cse:
       timeoutInMilliseconds: 30000
     validateCustomerSession:
       timeoutInMilliseconds: 30000
-  credentials:
-    accessKey: ak
-    secretKey: sk
-    akskCustomCipher: default

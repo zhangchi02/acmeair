@@ -27,7 +27,3 @@ cse:
       serverUri: https://cse.cn-north-1.myhuaweicloud.com:443
       refreshMode: 1
       refresh_interval: 5000
-  credentials:
-    accessKey: ak
-    secretKey: sk
-    akskCustomCipher: default

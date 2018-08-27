@@ -18,8 +18,6 @@
 package com.acmeair.morphia.services;
 
 import com.acmeair.entities.Customer;
-import com.acmeair.entities.Customer.MemberShipStatus;
-import com.acmeair.entities.Customer.PhoneType;
 import com.acmeair.entities.CustomerSession;
 import com.acmeair.morphia.entities.CustomerAddressImpl;
 import com.acmeair.morphia.entities.CustomerImpl;
@@ -55,8 +53,8 @@ class CustomerServiceImpl extends CustomerServiceSupport {
 	}
 	
 	public Customer createCustomer(String username, String password,
-			MemberShipStatus status, int total_miles, int miles_ytd,
-			String phoneNumber, PhoneType phoneNumberType,
+			String status, int total_miles, int miles_ytd,
+			String phoneNumber, String phoneNumberType,
 			CustomerAddressImpl address) {
 	
 		CustomerImpl customer = new CustomerImpl(username, password, status, total_miles, miles_ytd, address, phoneNumber, phoneNumberType);

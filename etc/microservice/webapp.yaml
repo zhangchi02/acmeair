@@ -1,4 +1,5 @@
-APPLICATION_ID: acmeair
+appId: acmeair
+APPLICATION_ID: ${appId}
 service_description:
   name: gateway
   version: 0.0.1

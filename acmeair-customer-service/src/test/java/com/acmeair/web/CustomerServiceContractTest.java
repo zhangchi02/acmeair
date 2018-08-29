@@ -107,7 +107,7 @@ public class CustomerServiceContractTest {
 
     @State("Customer Sean is registered")
     public void foundSpecifiedCustomer() {
-        when(customerService.getCustomerByUsername(customer.getUsername())).thenReturn(customer);
+        when(customerService.getCustomerByUsername(customer.getId())).thenReturn(customer);
         when(customerService.validateSession(customerSessionInfo.getId())).thenReturn(customerSessionInfo);
     }
 

@@ -73,7 +73,7 @@ public class CustomerInfo implements Serializable{
 	}
 	
 	public CustomerInfo(Customer c) {
-		this.id = c.getUsername();
+		this.id = c.getId();
 		this.password = c.getPassword();
 		this.status = c.getStatus();
 		this.total_miles = c.getTotal_miles();

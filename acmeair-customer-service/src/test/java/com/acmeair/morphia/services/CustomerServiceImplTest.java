@@ -75,7 +75,7 @@ public class CustomerServiceImplTest {
     @Test
     public void savesCustomerIntoDatabase() {
         Customer customer = customerService.createCustomer(
-                this.customer.getCustomerId(),
+                this.customer.getId(),
                 this.customer.getPassword(),
                 this.customer.getStatus(),
                 this.customer.getTotal_miles(),
@@ -106,9 +106,9 @@ public class CustomerServiceImplTest {
 
     @Test
     public void clearsPasswordOfRetrievedUser() {
-        when(customerRepository.findOne(customer.getCustomerId())).thenReturn(customer);
+        when(customerRepository.findOne(customer.getId())).thenReturn(customer);
 
-        Customer customer = customerService.getCustomerByUsername(this.customer.getUsername());
+        Customer customer = customerService.getCustomerByUsername(this.customer.getId());
 
         assertThat(customer, is(this.customer));
         assertThat(customer.getPassword(), is(nullValue()));
@@ -116,18 +116,18 @@ public class CustomerServiceImplTest {
 
     @Test
     public void getsCustomerIfUsernameAndPasswordMatches() {
-        when(customerRepository.findOne(customer.getCustomerId())).thenReturn(this.customer);
+        when(customerRepository.findOne(customer.getId())).thenReturn(this.customer);
 
-        Customer c = customerService.getCustomerByUsernameAndPassword(customer.getUsername(), customer.getPassword());
+        Customer c = customerService.getCustomerByUsernameAndPassword(customer.getId(), customer.getPassword());
 
         assertThat(c, is(customer));
     }
 
     @Test
     public void getsNullIfUsernameAndPasswordDoesNotMatch() {
-        when(customerRepository.findOne(customer.getCustomerId())).thenReturn(this.customer);
+        when(customerRepository.findOne(customer.getId())).thenReturn(this.customer);
 
-        Customer c = customerService.getCustomerByUsernameAndPassword(customer.getUsername(), uniquify("wrong password"));
+        Customer c = customerService.getCustomerByUsernameAndPassword(customer.getId(), uniquify("wrong password"));
 
         assertThat(c, is(nullValue()));
     }
@@ -141,18 +141,18 @@ public class CustomerServiceImplTest {
 
     @Test
     public void validCustomerIfUsernameAndPasswordMatches() {
-        when(customerRepository.findOne(customer.getCustomerId())).thenReturn(this.customer);
+        when(customerRepository.findOne(customer.getId())).thenReturn(this.customer);
 
-        boolean isValid = customerService.validateCustomer(customer.getUsername(), customer.getPassword());
+        boolean isValid = customerService.validateCustomer(customer.getId(), customer.getPassword());
 
         assertThat(isValid, is(true));
     }
 
     @Test
     public void inValidCustomerIfUsernameAndPasswordDoesNotMatch() {
-        when(customerRepository.findOne(customer.getCustomerId())).thenReturn(this.customer);
+        when(customerRepository.findOne(customer.getId())).thenReturn(this.customer);
 
-        boolean isValid = customerService.validateCustomer(customer.getUsername(), uniquify("wrong password"));
+        boolean isValid = customerService.validateCustomer(customer.getId(), uniquify("wrong password"));
 
         assertThat(isValid, is(false));
     }
@@ -166,12 +166,12 @@ public class CustomerServiceImplTest {
 
     @Test
     public void savesSessionIntoDatabase() {
-        CustomerSession session = customerService.createSession(customer.getCustomerId());
+        CustomerSession session = customerService.createSession(customer.getId());
 
         Date now = new Date();
 
         assertThat(session.getId(), is(sessionId));
-        assertThat(session.getCustomerid(), is(customer.getCustomerId()));
+        assertThat(session.getCustomerid(), is(customer.getId()));
         assertThat(session.getTimeoutTime().after(now), is(true));
         verify(sessionRepository).save((CustomerSessionImpl) session);
     }

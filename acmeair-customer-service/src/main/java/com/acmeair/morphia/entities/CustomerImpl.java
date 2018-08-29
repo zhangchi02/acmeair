@@ -37,7 +37,7 @@ public class CustomerImpl implements Customer, Serializable{
 	@Column(name = "id")
 	private String username;
 	private String password;
-	private String memberShipStatus;
+	private String status;
 	private int total_miles;
 	private int miles_ytd;
 
@@ -49,10 +49,10 @@ public class CustomerImpl implements Customer, Serializable{
 	public CustomerImpl() {
 	}
 	
-	public CustomerImpl(String username, String password, String memberShipStatus, int total_miles, int miles_ytd, CustomerAddressImpl address, String phoneNumber, String phoneNumberType) {
+	public CustomerImpl(String username, String password, String status, int total_miles, int miles_ytd, CustomerAddressImpl address, String phoneNumber, String phoneNumberType) {
 		this.username = username;
 		this.password = password;
-		this.memberShipStatus = memberShipStatus;
+		this.status = status;
 		this.total_miles = total_miles;
 		this.miles_ytd = miles_ytd;
 		this.address = address;
@@ -80,12 +80,12 @@ public class CustomerImpl implements Customer, Serializable{
 		this.password = password;
 	}
 	
-	public String getMemberShipStatus() {
-		return memberShipStatus;
+	public String getStatus() {
+		return status;
 	}
 	
-	public void setMemberShipStatus(String memberShipStatus) {
-		this.memberShipStatus = memberShipStatus;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	public int getTotal_miles() {
@@ -131,7 +131,7 @@ public class CustomerImpl implements Customer, Serializable{
 	@Override
 	public String toString() {
 		return "Customer [username=" + username + ", password=" + password + ", status="
-				+ memberShipStatus + ", total_miles=" + total_miles + ", miles_ytd="
+				+ status + ", total_miles=" + total_miles + ", miles_ytd="
 				+ miles_ytd + ", address=" + address + ", phoneNumber="
 				+ phoneNumber + ", phoneNumberType=" + phoneNumberType + "]";
 	}
@@ -169,7 +169,7 @@ public class CustomerImpl implements Customer, Serializable{
 			return false;
 		if (phoneNumberType != other.phoneNumberType)
 			return false;
-		if (memberShipStatus != other.memberShipStatus)
+		if (status != other.status)
 			return false;
 		if (total_miles != other.total_miles)
 			return false;

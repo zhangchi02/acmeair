@@ -39,9 +39,9 @@ public interface Customer {
 	
 	void setAddress(CustomerAddress address);
 	
-	String getMemberShipStatus();
+	String getStatus();
 	
-	void setMemberShipStatus(String status);
+	void setStatus(String status);
 	
 	int getTotal_miles();
 	

@@ -97,7 +97,7 @@ public class CustomerServiceApplicationTestBase {
     private HttpHeaders headerWithCookieOfLoginSession() {
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(
                 "/rest/api/login",
-                loginRequest(customer.getCustomerId(), customer.getPassword()),
+                loginRequest(customer.getId(), customer.getPassword()),
                 String.class
         );
 

@@ -21,9 +21,9 @@ package com.acmeair.entities;
 
 public interface Customer {
 
-	String getUsername();
+	String getId();
 	
-	void setUsername(String username);
+	void setId(String id);
 	
 	String getPassword();
 	
@@ -32,8 +32,6 @@ public interface Customer {
 	String getPhoneNumber();
 	
 	void setPhoneNumber(String phoneNumber);
-	
-	String getCustomerId();
 	
 	CustomerAddress getAddress();
 	

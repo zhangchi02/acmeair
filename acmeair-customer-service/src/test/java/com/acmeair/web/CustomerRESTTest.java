@@ -70,9 +70,9 @@ public class CustomerRESTTest {
 
     @Test
     public void getsCustomerWithUnderlyingService() {
-        when(customerService.getCustomerByUsername(customer.getUsername())).thenReturn(customer);
+        when(customerService.getCustomerByUsername(customer.getId())).thenReturn(customer);
 
-        ResponseEntity<CustomerInfo> responseEntity = restTemplate.getForEntity("/rest/api/customer/{custid}", CustomerInfo.class, customer.getUsername());
+        ResponseEntity<CustomerInfo> responseEntity = restTemplate.getForEntity("/rest/api/customer/{custid}", CustomerInfo.class, customer.getId());
 
         assertThat(responseEntity.getStatusCode(), is(HttpStatus.OK));
         assertThat(responseEntity.getBody(), is(customerInfo));
@@ -89,25 +89,25 @@ public class CustomerRESTTest {
                 HttpMethod.GET,
                 new HttpEntity<>(headers),
                 CustomerInfo.class,
-                customer.getUsername());
+                customer.getId());
 
         assertThat(responseEntity.getStatusCode(), is(HttpStatus.FORBIDDEN));
     }
 
     @Test
     public void getsCustomerInfoOfOneself() {
-        when(customerService.getCustomerByUsername(customer.getUsername())).thenReturn(customer);
+        when(customerService.getCustomerByUsername(customer.getId())).thenReturn(customer);
 
         HttpHeaders headers = new HttpHeaders();
         headers.set(COOKIE, "sessionid=" + uniquify("session-id"));
-        headers.set(CustomerREST.LOGIN_USER, customer.getUsername());
+        headers.set(CustomerREST.LOGIN_USER, customer.getId());
 
         ResponseEntity<CustomerInfo> responseEntity = restTemplate.exchange(
                 "/rest/api/customer/byid/{custid}",
                 HttpMethod.GET,
                 new HttpEntity<>(headers),
                 CustomerInfo.class,
-                customer.getUsername());
+                customer.getId());
 
         assertThat(responseEntity.getStatusCode(), is(HttpStatus.OK));
         assertThat(responseEntity.getBody(), is(customerInfo));
@@ -122,37 +122,37 @@ public class CustomerRESTTest {
                 HttpMethod.POST,
                 requestEntity,
                 CustomerInfo.class,
-                customer.getUsername());
+                customer.getId());
 
         assertThat(responseEntity.getStatusCode(), is(HttpStatus.FORBIDDEN));
     }
 
     @Test
     public void forbidsCustomerToUpdateInfoIfPasswordMismatch() throws JsonProcessingException {
-        HttpEntity<CustomerInfo> requestEntity = postRequestOfUser(customer.getUsername());
+        HttpEntity<CustomerInfo> requestEntity = postRequestOfUser(customer.getId());
 
         ResponseEntity<CustomerInfo> responseEntity = restTemplate.exchange(
                 "/rest/api/customer/byid/{custid}",
                 HttpMethod.POST,
                 requestEntity,
                 CustomerInfo.class,
-                customer.getUsername());
+                customer.getId());
 
         assertThat(responseEntity.getStatusCode(), is(HttpStatus.FORBIDDEN));
     }
 
     @Test
     public void updatesCustomerInfoOfOneself() throws JsonProcessingException {
-        when(customerService.getCustomerByUsernameAndPassword(customer.getUsername(), customer.getPassword())).thenReturn(customer);
+        when(customerService.getCustomerByUsernameAndPassword(customer.getId(), customer.getPassword())).thenReturn(customer);
 
-        HttpEntity<CustomerInfo> requestEntity = postRequestOfUser(customer.getUsername());
+        HttpEntity<CustomerInfo> requestEntity = postRequestOfUser(customer.getId());
 
         ResponseEntity<CustomerInfo> responseEntity = restTemplate.exchange(
                 "/rest/api/customer/byid/{custid}",
                 HttpMethod.POST,
                 requestEntity,
                 CustomerInfo.class,
-                customer.getUsername());
+                customer.getId());
 
         assertThat(responseEntity.getStatusCode(), is(HttpStatus.OK));
         assertThat(responseEntity.getBody().getPassword(), is(nullValue()));

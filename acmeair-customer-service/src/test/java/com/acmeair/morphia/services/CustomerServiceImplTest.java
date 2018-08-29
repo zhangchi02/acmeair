@@ -77,7 +77,7 @@ public class CustomerServiceImplTest {
         Customer customer = customerService.createCustomer(
                 this.customer.getCustomerId(),
                 this.customer.getPassword(),
-                this.customer.getMemberShipStatus(),
+                this.customer.getStatus(),
                 this.customer.getTotal_miles(),
                 this.customer.getMiles_ytd(),
                 this.customer.getPhoneNumber(),

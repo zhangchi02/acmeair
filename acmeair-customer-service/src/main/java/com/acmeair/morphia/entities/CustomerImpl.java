@@ -35,7 +35,7 @@ public class CustomerImpl implements Customer, Serializable{
 
 	@Id
 	@Column(name = "id")
-	private String username;
+	private String _id;
 	private String password;
 	private String memberShipStatus;
 	private int total_miles;
@@ -50,7 +50,7 @@ public class CustomerImpl implements Customer, Serializable{
 	}
 	
 	public CustomerImpl(String username, String password, String memberShipStatus, int total_miles, int miles_ytd, CustomerAddressImpl address, String phoneNumber, String phoneNumberType) {
-		this.username = username;
+		this._id = username;
 		this.password = password;
 		this.memberShipStatus = memberShipStatus;
 		this.total_miles = total_miles;
@@ -61,15 +61,15 @@ public class CustomerImpl implements Customer, Serializable{
 	}
 
 	public String getCustomerId(){
-		return username;
+		return _id;
 	}
 	
 	public String getUsername() {
-		return username;
+		return _id;
 	}
 	
 	public void setUsername(String username) {
-		this.username = username;
+		this._id = username;
 	}
 	
 	public String getPassword() {
@@ -84,8 +84,8 @@ public class CustomerImpl implements Customer, Serializable{
 		return memberShipStatus;
 	}
 	
-	public void setMemberShipStatus(String memberShipStatus) {
-		this.memberShipStatus = memberShipStatus;
+	public void setMemberShipStatus(String status) {
+		this.memberShipStatus = status;
 	}
 	
 	public int getTotal_miles() {
@@ -130,7 +130,7 @@ public class CustomerImpl implements Customer, Serializable{
 
 	@Override
 	public String toString() {
-		return "Customer [username=" + username + ", password=" + password + ", memberShipStatus="
+		return "Customer [id=" + _id + ", password=" + password + ", memberShipStatus="
 				+ memberShipStatus + ", total_miles=" + total_miles + ", miles_ytd="
 				+ miles_ytd + ", address=" + address + ", phoneNumber="
 				+ phoneNumber + ", phoneNumberType=" + phoneNumberType + "]";
@@ -150,10 +150,10 @@ public class CustomerImpl implements Customer, Serializable{
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
-		if (username == null) {
-			if (other.username != null)
+		if (_id == null) {
+			if (other._id != null)
 				return false;
-		} else if (!username.equals(other.username))
+		} else if (!_id.equals(other._id))
 			return false;
 		if (miles_ytd != other.miles_ytd)
 			return false;

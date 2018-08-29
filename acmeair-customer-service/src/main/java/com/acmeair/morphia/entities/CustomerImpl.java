@@ -35,7 +35,7 @@ public class CustomerImpl implements Customer, Serializable{
 
 	@Id
 	@Column(name = "id")
-	private String _id;
+	private String id;
 	private String password;
 	private String status;
 	private int total_miles;
@@ -50,7 +50,7 @@ public class CustomerImpl implements Customer, Serializable{
 	}
 	
 	public CustomerImpl(String username, String password, String status, int total_miles, int miles_ytd, CustomerAddressImpl address, String phoneNumber, String phoneNumberType) {
-		this._id = username;
+		this.id = username;
 		this.password = password;
 		this.status = status;
 		this.total_miles = total_miles;
@@ -60,16 +60,12 @@ public class CustomerImpl implements Customer, Serializable{
 		this.phoneNumberType = phoneNumberType;
 	}
 
-	public String getCustomerId(){
-		return _id;
+	public String getId() {
+		return id;
 	}
 	
-	public String getUsername() {
-		return _id;
-	}
-	
-	public void setUsername(String username) {
-		this._id = username;
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	public String getPassword() {
@@ -130,7 +126,7 @@ public class CustomerImpl implements Customer, Serializable{
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + _id + ", password=" + password + ", status="
+		return "Customer [id=" + id + ", password=" + password + ", status="
 				+ status + ", total_miles=" + total_miles + ", miles_ytd="
 				+ miles_ytd + ", address=" + address + ", phoneNumber="
 				+ phoneNumber + ", phoneNumberType=" + phoneNumberType + "]";
@@ -150,10 +146,10 @@ public class CustomerImpl implements Customer, Serializable{
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
-		if (_id == null) {
-			if (other._id != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!_id.equals(other._id))
+		} else if (!id.equals(other.id))
 			return false;
 		if (miles_ytd != other.miles_ytd)
 			return false;

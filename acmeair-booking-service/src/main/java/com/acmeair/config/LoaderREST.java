@@ -48,7 +48,7 @@ public class LoaderREST {
     @GET
     @Path("/load")
     @Produces(MediaType.APPLICATION_JSON)
-    public String loadDB(@DefaultValue("-1") @QueryParam("numCustomers") long numCustomers) {
+    public String loadDB(@QueryParam("numCustomers") long numCustomers) {
         String response = loader.loadDB(numCustomers);
         return response;
     }

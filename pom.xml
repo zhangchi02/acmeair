@@ -109,9 +109,20 @@
 
 			<repositories>
 				<repository>
+					<id>dependencies</id>
+					<name>dependencies</name>
+					<url>https://repo.huaweicloud.com/repository/maven/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<repository>
 					<id>huawei_cloud_cse_dependencies</id>
 					<name>huawei_cloud_cse_dependencies</name>
-					<url>https://mirrors.huaweicloud.com/repository/maven/huaweicloudsdk/</url>
+					<url>https://repo.huaweicloud.com/repository/maven/huaweicloudsdk/</url>
 					<releases>
 						<enabled>true</enabled>
 					</releases>
@@ -122,9 +133,20 @@
 			</repositories>
 			<pluginRepositories>
 				<pluginRepository>
+					<id>dependencies</id>
+					<name>dependencies</name>
+					<url>https://repo.huaweicloud.com/repository/maven/</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</pluginRepository>
+				<pluginRepository>
 					<id>huawei_cloud_cse_dependencies</id>
 					<name>huawei_cloud_cse_dependencies</name>
-					<url>https://mirrors.huaweicloud.com/repository/maven/huaweicloudsdk/</url>
+					<url>https://repo.huaweicloud.com/repository/maven/huaweicloudsdk/</url>
 					<releases>
 						<enabled>true</enabled>
 					</releases>

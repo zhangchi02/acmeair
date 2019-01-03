@@ -154,6 +154,11 @@ under the License.
       <name>Human Readable Name for this Mirror.</name>
       <url>http://my.repository.com/repo/path</url>
     </mirror>-->
+	<mirror>
+		<id>huaweicloud</id>
+		<mirrorOf>*,!HuaweiCloudSDK</mirrorOf>
+		<url>https://repo.huaweicloud.com/repository/maven/</url>
+	</mirror>
   </mirrors>
 
   <!-- profiles
@@ -242,7 +247,33 @@ under the License.
       </properties>
     </profile>
     -->
-    
+	<profile>
+		<id>MyProfile</id>
+		<repositories>
+			<repository>
+				<id>HuaweiCloudSDK</id>
+				<url>https://repo.huaweicloud.com/repository/maven/huaweicloudsdk/</url>
+				<releases>
+					<enabled>true</enabled>
+				</releases>
+				<snapshots>
+					<enabled>false</enabled>
+				</snapshots>
+			</repository>
+		</repositories>
+		<pluginRepositories>
+			<pluginRepository>
+				<id>HuaweiCloudSDK</id>
+				<url>https://repo.huaweicloud.com/repository/maven/huaweicloudsdk/</url>
+				<releases>
+					<enabled>true</enabled>
+				</releases>
+				<snapshots>
+					<enabled>false</enabled>
+				</snapshots>
+			</pluginRepository>
+		</pluginRepositories>
+	</profile>
   </profiles>
   
   <!-- activeProfiles
@@ -253,4 +284,7 @@ under the License.
     <activeProfile>anotherAlwaysActiveProfile</activeProfile>
   </activeProfiles>
   -->
+	<activeProfiles>
+		<activeProfile>MyProfile</activeProfile>
+	</activeProfiles>
 </settings>

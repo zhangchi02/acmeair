@@ -2,7 +2,7 @@ APPLICATION_ID: acmeair
 service_description:
   name: customerServiceApp 
   version: 0.0.1
-  env: development
+  environment: development
 cse:
   service:
     registry:

@@ -2,7 +2,7 @@
 service_description:
   name: bookingServiceApp
   version: 0.0.1
-  env: development
+  environment: development
 cse:
   service:
     registry:

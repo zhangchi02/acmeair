@@ -20,7 +20,6 @@ import static org.springframework.http.HttpHeaders.SET_COOKIE;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import org.apache.servicecomb.common.rest.codec.RestObjectMapper;
 import org.apache.servicecomb.common.rest.codec.RestObjectMapperFactory;
 
 import java.io.ByteArrayOutputStream;

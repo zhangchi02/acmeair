@@ -2,6 +2,7 @@ APPLICATION_ID: acmeair
 service_description:
   name: gateway
   version: 0.0.1
+  environment: development
 cse:
   service:
     registry:

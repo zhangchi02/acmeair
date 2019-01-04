@@ -5,7 +5,7 @@ inputs:
     label: huaweiair
   booking_image:
     default: >-
-      swr.cn-north-1.myhuaweicloud.com/servicestage/huaweiair-booking-service:huaweicloud-2.3.32-01
+      swr.cn-north-1.myhuaweicloud.com/huawei-cse/huaweiair-booking-service:huaweicloud-2.3.32-01
     description: booking服务镜像地址
     label: huaweiair
   booking_name:
@@ -14,7 +14,7 @@ inputs:
     label: huaweiair
   customer_image:
     default: >-
-      swr.cn-north-1.myhuaweicloud.com/servicestage/huaweiair-customer-service:huaweicloud-2.3.32-01
+      swr.cn-north-1.myhuaweicloud.com/huawei-cse/huaweiair-customer-service:huaweicloud-2.3.32-01
     description: customer服务镜像地址
     label: huaweiair
   customer_name:
@@ -22,7 +22,7 @@ inputs:
     description: customer服务名称
     label: huaweiair
   mongo_image:
-    default: 'swr.cn-north-1.myhuaweicloud.com/servicestage/mongo:1.0.0'
+    default: 'swr.cn-north-1.myhuaweicloud.com/huawei-cse/mongo:1.0.0'
     description: mongodb镜像地址
     label: mongodb
   mongo_name:
@@ -36,7 +36,7 @@ inputs:
     type: integer
   website_image:
     default: >-
-      swr.cn-north-1.myhuaweicloud.com/servicestage/huaweiair-website:huaweicloud-2.3.32-01
+      swr.cn-north-1.myhuaweicloud.com/huawei-cse/huaweiair-website:huaweicloud-2.3.32-01
     description: wwebsite服务镜像地址
     label: huaweiair
   website_name:

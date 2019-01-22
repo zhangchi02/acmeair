@@ -40,7 +40,7 @@ public class BookingsREST {
     private BookingService bs;
 
     @POST
-    @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/bookflights")
     @Produces(MediaType.APPLICATION_JSON)
     public BookingReceiptInfo bookFlights(
@@ -102,7 +102,7 @@ public class BookingsREST {
     }
 
     @POST
-    @Consumes({"application/x-www-form-urlencoded"})
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/cancelbooking")
     @Produces(MediaType.APPLICATION_JSON)
     public String cancelBookingsByNumber(

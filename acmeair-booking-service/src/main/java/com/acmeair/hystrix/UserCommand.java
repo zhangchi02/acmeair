@@ -61,6 +61,7 @@ abstract class UserCommand implements UserService {
             throw new NoSuchElementException("No such customer with id " + customerId);
         }
         log.info("Received response {} from remote customer at {} with customer id {}", resp.getBody(), address, customerId);
+        log.info("booking call customer , response headers {}" ,resp.getHeaders());
         return resp.getBody();
     }
     

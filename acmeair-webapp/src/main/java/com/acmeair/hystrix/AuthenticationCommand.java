@@ -60,6 +60,7 @@ public abstract class AuthenticationCommand implements AuthenticationService {
           logger.warn("No such customer found with session id {}", sessionId);
           return null;
       }
+      logger.info("website call customer,response header {}",responseEntity.getHeaders());
       return responseEntity.getBody();
   }
 

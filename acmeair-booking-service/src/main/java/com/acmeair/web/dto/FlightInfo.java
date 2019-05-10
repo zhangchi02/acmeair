@@ -32,7 +32,7 @@ import com.acmeair.entities.Flight;
 public class FlightInfo {
 	
 	@XmlElement(name="_id")
-	private String _id;	
+	private String flightId;	
 	private String flightSegmentId;		
 	private Date scheduledDepartureTime;
 	private Date scheduledArrivalTime;
@@ -51,7 +51,7 @@ public class FlightInfo {
 	}
 	
 	public FlightInfo(Flight flight){
-		this._id = flight.getFlightId();
+		this.flightId = flight.getFlightId();
 		this.flightSegmentId = flight.getFlightSegmentId();
 		this.scheduledDepartureTime = flight.getScheduledDepartureTime();
 		this.scheduledArrivalTime = flight.getScheduledArrivalTime();
@@ -65,14 +65,14 @@ public class FlightInfo {
 		} else {
 			this.flightSegment = null;
 		}
-		this.pkey = new FlightPKInfo(this.flightSegmentId, this._id);
+		this.pkey = new FlightPKInfo(this.flightSegmentId, this.flightId);
 	}
 	
-	public String get_id() {
-		return _id;
+	public String getFlightId() {
+		return flightId;
 	}
-	public void setid(String _id) {
-		this._id = _id;
+	public void setid(String flightId) {
+		this.flightId = flightId;
 	}
 	public String getFlightSegmentId() {
 		return flightSegmentId;
@@ -139,7 +139,7 @@ public class FlightInfo {
 		FlightInfo that = (FlightInfo) o;
 		return numFirstClassSeats == that.numFirstClassSeats &&
 				numEconomyClassSeats == that.numEconomyClassSeats &&
-				Objects.equals(_id, that._id) &&
+				Objects.equals(flightId, that.flightId) &&
 				Objects.equals(flightSegmentId, that.flightSegmentId) &&
 				Objects.equals(scheduledDepartureTime, that.scheduledDepartureTime) &&
 				Objects.equals(scheduledArrivalTime, that.scheduledArrivalTime) &&
@@ -153,7 +153,7 @@ public class FlightInfo {
 	@Override
 	public String toString() {
 		return "FlightInfo{" +
-				"_id='" + _id + '\'' +
+				"flightId='" + flightId + '\'' +
 				", flightSegmentId='" + flightSegmentId + '\'' +
 				", scheduledDepartureTime=" + scheduledDepartureTime +
 				", scheduledArrivalTime=" + scheduledArrivalTime +

@@ -5,7 +5,7 @@ inputs:
     label: huaweiair
   booking_image:
     default: >-
-      swr.cn-north-1.myhuaweicloud.com/huawei-cse/huaweiair-booking-service:huaweicloud-2.3.32-01
+      swr.cn-north-1.myhuaweicloud.com/huawei-cse/huaweiair-booking-service:latest
     description: booking服务镜像地址
     label: huaweiair
   booking_name:
@@ -14,7 +14,7 @@ inputs:
     label: huaweiair
   customer_image:
     default: >-
-      swr.cn-north-1.myhuaweicloud.com/huawei-cse/huaweiair-customer-service:huaweicloud-2.3.32-01
+      swr.cn-north-1.myhuaweicloud.com/huawei-cse/huaweiair-customer-service:latest
     description: customer服务镜像地址
     label: huaweiair
   customer_name:
@@ -36,7 +36,7 @@ inputs:
     type: integer
   website_image:
     default: >-
-      swr.cn-north-1.myhuaweicloud.com/huawei-cse/huaweiair-website:huaweicloud-2.3.32-01
+      swr.cn-north-1.myhuaweicloud.com/huawei-cse/huaweiair-website-checkin:latest
     description: wwebsite服务镜像地址
     label: huaweiair
   website_name:

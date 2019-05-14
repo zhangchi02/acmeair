@@ -1,0 +1,30 @@
+APPLICATION_ID: acmeair
+service_description:
+  name: customerServiceApp 
+  version: 0.0.1
+  environment: development
+cse:
+  service:
+    registry:
+      address: https://cse.cn-north-1.myhuaweicloud.com:443
+      instance:
+        watch: false
+  rest:
+    address: 0.0.0.0:7002?sslEnabled=false
+  monitor:
+    client:
+      serverUri: https://cse.cn-north-1.myhuaweicloud.com:443
+  handler:
+    chain:
+      Provider:
+        default: bizkeeper-provider,perf-stats,tracing-provider,sla-provider,qps-flowcontrol-provider
+      Consumer:
+        default: loadbalance,bizkeeper-consumer,perf-stats,tracing-consumer,sla-consumer,qps-flowcontrol-consumer
+  tracing:
+    enabled: true
+    samplingRate: 0.5
+  config:
+    client:
+      serverUri: https://cse.cn-north-1.myhuaweicloud.com:443
+      refreshMode: 1
+      refresh_interval: 5000

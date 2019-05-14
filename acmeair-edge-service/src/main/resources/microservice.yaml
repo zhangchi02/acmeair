@@ -1,0 +1,19 @@
+APPLICATION_ID: acmeair
+service_description:
+  name: edge
+  version: 0.0.1
+  environment: development
+cse:
+  service:
+    registry:
+      address: http://127.0.0.1:30100
+      instance: 
+        watch: false
+  rest:
+    address: 0.0.0.0:8080
+    server:
+      thread-count: 8
+    client:
+      thread-count: 8
+  executors:
+    default: cse.executor.groupThreadPool

@@ -1,0 +1,13 @@
+APPLICATION_ID: acmeair
+service_description:
+  name: orderService
+  version: 0.0.1
+  environment: development
+cse:
+  service:
+    registry:
+      address: http://127.0.0.1:30100
+      instance: 
+        watch: false
+  rest:
+    address: 0.0.0.0:7004
